@@ -1,7 +1,7 @@
 package org.alex.service;
 
 import lombok.RequiredArgsConstructor;
-import org.alex.Repository.ItemRepository;
+import org.alex.repository.ItemRepository;
 import org.alex.entity.Item;
 import org.springframework.stereotype.Service;
 

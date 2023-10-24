@@ -1,8 +1,8 @@
-package org.alex.Repository.jdbc;
+package org.alex.repository.jdbc;
 
 import lombok.RequiredArgsConstructor;
-import org.alex.Repository.UserRepository;
-import org.alex.Repository.jdbc.mapper.UserRowMapper;
+import org.alex.repository.UserRepository;
+import org.alex.repository.jdbc.mapper.UserRowMapper;
 import org.alex.entity.User;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -41,8 +41,8 @@ public class JdbcUserDao implements UserRepository {
         namedParameterJdbcTemplate.update(ADD_SQL, parameters);
     }
 
-    //test only
-    public void deleteAll() {
-        namedParameterJdbcTemplate.getJdbcTemplate().update("DELETE FROM users");
-    }
+   //test only
+   public void deleteAll() {
+       namedParameterJdbcTemplate.getJdbcTemplate().update("DELETE FROM users");
+   }
 }

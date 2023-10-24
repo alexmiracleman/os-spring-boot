@@ -1,4 +1,4 @@
-package org.alex.Repository;
+package org.alex.repository;
 
 
 import org.alex.entity.User;
@@ -12,6 +12,5 @@ public interface UserRepository {
     void add(User user);
 
     void deleteAll();
-
 
 }

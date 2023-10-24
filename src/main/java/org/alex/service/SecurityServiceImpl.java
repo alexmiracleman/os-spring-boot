@@ -6,6 +6,7 @@ import org.alex.entity.Credentials;
 import org.alex.entity.User;
 import org.alex.util.PasswordUtils;
 import org.alex.util.SessionTime;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -27,7 +28,6 @@ public class SecurityServiceImpl implements SecurityService {
     private final PasswordUtils passwordUtils;
 
     private final SessionTime sessionTime;
-
 
     @Override
     public Session authenticate(Credentials credentials) throws NoSuchAlgorithmException, NoSuchProviderException {
@@ -82,22 +82,21 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public String userRegistration(String email, String password) throws NoSuchAlgorithmException, NoSuchProviderException {
         if (password.isBlank() || email.isBlank()) {
-            return "The email or password cannot be empty";
-        } else {
-            String salt = passwordUtils.generateSalt();
-            User user = User.builder()
-                    .email(email)
-                    .salt(salt)
-                    .password(passwordUtils.generateHash(password, salt))
-                    .userType("USER")
-                    .build();
-            try {
-                userService.add(user);
-            } catch (Exception e) {
-                return "The email you entered is already registered, please proceed to log in page";
-            }
+            return "empty";
         }
-        return "CONGRATULATIONS. YOU'RE NOW REGISTERED. PLEASE LOG IN WITH YOUR EMAIL AND PASSWORD";
+        String salt = passwordUtils.generateSalt();
+        User user = User.builder()
+                .email(email)
+                .salt(salt)
+                .password(passwordUtils.generateHash(password, salt))
+                .userType("USER")
+                .build();
+        try {
+            userService.add(user);
+            return "ok";
+        } catch (DuplicateKeyException e) {
+            return "duplicate";
+        }
     }
 }
 
