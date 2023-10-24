@@ -1,7 +1,7 @@
 package org.alex.service;
 
 import lombok.AllArgsConstructor;
-import org.alex.Repository.UserRepository;
+import org.alex.repository.UserRepository;
 import org.alex.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
         userRepository.add(user);
     }
+
 
     @Override
     public void deleteAll() {

@@ -1,4 +1,4 @@
-package org.alex.Repository;
+package org.alex.repository;
 
 
 import org.alex.entity.Item;

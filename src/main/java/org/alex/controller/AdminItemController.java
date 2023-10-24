@@ -51,7 +51,6 @@ public class AdminItemController {
             model.addAttribute("items", items);
             model.addAttribute("itemDepartmentTypes", ItemDepartmentType.values());
             return "add_item";
-
     }
 
 

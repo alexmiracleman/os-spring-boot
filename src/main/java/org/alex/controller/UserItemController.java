@@ -1,6 +1,5 @@
 package org.alex.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.alex.common.Session;
 import org.alex.entity.Item;
@@ -9,6 +8,7 @@ import org.alex.service.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,8 +32,7 @@ public class UserItemController {
     }
 
     @GetMapping("/cart")
-    public String getCart(Model model, HttpServletRequest request) {
-        Session session = (Session) request.getAttribute("session");
+    public String getCart(Model model, @RequestAttribute("session") Session session) {
         List<Item> items = session.getCart();
         model.addAttribute("itemDepartmentTypes", ItemDepartmentType.values());
         model.addAttribute("items", items);
@@ -41,8 +40,7 @@ public class UserItemController {
     }
 
     @GetMapping("/cart/add")
-    public String addItem(@RequestParam("id") String id, HttpServletRequest request, Model model) {
-        Session session = (Session) request.getAttribute("session");
+    public String addItem(@RequestParam("id") String id, @RequestAttribute("session") Session session, Model model) {
         List<Item> cart = session.getCart();
         List<Item> items = itemService.findAll();
         for (Item item : items) {
@@ -57,8 +55,7 @@ public class UserItemController {
     }
 
     @GetMapping("cart/remove")
-    public String removeItem(@RequestParam("id") String id, HttpServletRequest request, Model model) {
-        Session session = (Session) request.getAttribute("session");
+    public String removeItem(@RequestParam("id") String id, @RequestAttribute("session") Session session, Model model) {
         List<Item> cart = session.getCart();
         Item item = itemService.findByIdInCart(cart, parseInt(id));
         if (item != null) {
