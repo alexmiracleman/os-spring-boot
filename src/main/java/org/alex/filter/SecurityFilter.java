@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.alex.common.Session;
 import org.alex.service.SecurityService;
-import org.alex.service.SecurityServiceImpl;
 import org.alex.util.SessionTime;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +14,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @RequiredArgsConstructor
 @Component
 public class SecurityFilter implements Filter {
 
     private final SecurityService securityService;
 
-    private List<String> openPaths = List.of("/login", "/logout", "/register");
+    private final List<String> openPaths = List.of("/login", "/logout", "/register");
 
     private final SessionTime sessionTime;
 
@@ -40,6 +38,7 @@ public class SecurityFilter implements Filter {
         String actualToken = getUserTokenValue(httpServletRequest);
         if (actualToken == null) {
             httpServletResponse.sendRedirect("/login");
+
             return;
         }
 

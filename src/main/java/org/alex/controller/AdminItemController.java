@@ -86,10 +86,8 @@ public class AdminItemController {
     @GetMapping("/update")
     public String updateItemPage(Model model) {
         List<Item> items = itemService.findAll();
-        String duplicateItem = "The item you entered already exists";
         model.addAttribute("items", items);
         model.addAttribute("itemDepartmentTypes", ItemDepartmentType.values());
-        model.addAttribute("errorMessage", duplicateItem);
         return "update_item";
     }
 
