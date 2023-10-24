@@ -51,19 +51,25 @@ public class CredentialController {
     public String register(@RequestParam("email") String email, @RequestParam("password") String password, Model model) throws NoSuchAlgorithmException, NoSuchProviderException {
 
         String message = securityService.userRegistration(email, password);
-        String emptyCredentials = "The email or password cannot be empty";
-        String duplicateEmail = "The email you entered is already registered, please proceed to log in page";
 
-        if (message.equals(emptyCredentials)) {
+        if (message.equals("empty")) {
+            String emptyCredentials = "The email or password cannot be empty";
             model.addAttribute("errorMessage", emptyCredentials);
             return "register";
         }
-        if (message.equals(duplicateEmail)) {
+        if (message.equals("duplicate")) {
+            String duplicateEmail = "The email you entered is already registered, please proceed to log in page";
             model.addAttribute("errorMessage", duplicateEmail);
             return "register";
         }
-        model.addAttribute("successMessage", message);
-        return "login";
+        if (message.equals("ok")) {
+            String successMessage = "You're registered! You may login now";
+            model.addAttribute("successMessage", successMessage);
+            return "login";
+        }
+        String internalError = "Internal Server Error. Please try again later";
+        model.addAttribute("errorMessage", internalError);
+        return "registered";
     }
 
     @GetMapping("/logout")
