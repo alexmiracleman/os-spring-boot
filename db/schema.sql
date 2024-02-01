@@ -4,7 +4,7 @@ CREATE TABLE inventory
    name             VARCHAR(50)  NOT NULL UNIQUE,
    price            INTEGER       NOT NULL,
    department       VARCHAR(50),
-   creation_date    TIMESTAMP
+   time_date    TIMESTAMP
 );
 
 CREATE TABLE users
