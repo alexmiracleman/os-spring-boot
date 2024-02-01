@@ -44,13 +44,22 @@ public class AdminItemController {
                 .price(Integer.parseInt(price))
                 .itemDepartmentType(ItemDepartmentType.getById(department))
                 .build();
-
+        try {
             List<Item> items = itemService.addItemReturnAll(itemToAdd);
             String successMessage = "THE ITEM HAS BEEN ADDED";
             model.addAttribute("successMessage", successMessage);
             model.addAttribute("items", items);
             model.addAttribute("itemDepartmentTypes", ItemDepartmentType.values());
             return "add_item";
+        } catch (Exception e) {
+            List<Item> items = itemService.findAll();
+            String errorMessage = "The item name you entered is already on the list";
+            model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("items", items);
+            model.addAttribute("itemDepartmentTypes", ItemDepartmentType.values());
+        }
+
+        return "add_item";
 
     }
 
@@ -77,8 +86,10 @@ public class AdminItemController {
     @GetMapping("/update")
     public String updateItemPage(Model model) {
         List<Item> items = itemService.findAll();
+        String duplicateItem = "The item you entered already exists";
         model.addAttribute("items", items);
         model.addAttribute("itemDepartmentTypes", ItemDepartmentType.values());
+        model.addAttribute("errorMessage", duplicateItem);
         return "update_item";
     }
 

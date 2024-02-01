@@ -23,6 +23,7 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> addItemReturnAll(Item itemToAdd) {
         LocalDateTime now = LocalDateTime.now();
         itemToAdd.setCreationModificationDate(now);
+
         itemRepository.add(itemToAdd);
         return itemRepository.findAll();
     }
