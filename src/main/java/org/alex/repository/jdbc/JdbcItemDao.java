@@ -1,8 +1,8 @@
-package org.alex.Repository.jdbc;
+package org.alex.repository.jdbc;
 
 import lombok.RequiredArgsConstructor;
-import org.alex.Repository.ItemRepository;
-import org.alex.Repository.jdbc.mapper.ItemRowMapper;
+import org.alex.repository.ItemRepository;
+import org.alex.repository.jdbc.mapper.ItemRowMapper;
 import org.alex.entity.Item;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

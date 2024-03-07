@@ -1,4 +1,4 @@
-package org.alex.Repository.jdbc.mapper;
+package org.alex.repository.jdbc.mapper;
 
 import org.alex.entity.Item;
 import org.alex.entity.ItemDepartmentType;
